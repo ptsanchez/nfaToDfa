@@ -86,14 +86,37 @@ public class cse105 {
             this.acceptStates = new HashSet<>();
         }
 
-        void addTransition(Set<Set<State>> to, char input, Set<Set<State>> from) {
-
+        void addTransition(Set<State> from, char input, Set<State> to) {
+            alphabet.add(input);
+            transitions.computeIfAbsent(from, k -> new HashMap<>());
+            transitions.get(from).computeIfAbsent(input, k -> new HashSet<>());
+            transitions.get(from).get(input).add(to);
         }
     }
 
+
+    /*
+     * TODO: All transitions including to empty set and macro states, add accept state 
+     */
     static DFA convertToDFA(NFA nfa) {
         DFA dfa = new DFA();
+        dfa.initialState = nfa.initialState;
         
+        //Convert NFA transitions to DFA transitions
+        for (Map.Entry<State, Map<Character, Set<State>>> entry: nfa.transitions.entrySet()) {
+            State state = entry.getKey();
+            Map<Character, Set<State>> transition = entry.getValue();
+            Set<State> states = new HashSet<>();
+            states.add(state);
+            for (Character chara: transition.keySet()) {
+                dfa.addTransition(states, chara, transition.get(chara));
+            }
+        }
+        
+        for (Set<State> dfaState: dfa.transitions.keySet()) {
+            dfa.states.add(dfaState);
+        }
+
         return dfa;
     }
 
@@ -147,14 +170,14 @@ public class cse105 {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } 
-        
+
         System.out.println("NFA CONTENTS:\n");
         System.out.println("Set of states: " + NFA.states);
         System.out.println("Alphabet: " + NFA.alphabet);
         System.out.println("Transitions: " + NFA.transitions);
         System.out.println("Initial State: " + NFA.initialState);
         System.out.println("Set of Accepting States: " + NFA.acceptStates);
-
+        
         DFA DFA = convertToDFA(NFA);
 
         System.out.println("\n-----\n");
