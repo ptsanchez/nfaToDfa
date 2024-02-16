@@ -113,10 +113,26 @@ public class cse105 {
             }
         }
         
+
+        State emptyState = new State("EMPTY");
+        Set<State> emptySet = new HashSet<>();
+        emptySet.add(emptyState);
+
+        for (Set<State> dfaState: dfa.transitions.keySet()) {
+            Map<Character, Set<Set<State>>> charMap = dfa.transitions.get(dfaState);
+            if (!charMap.containsKey('a')) {
+                dfa.addTransition(dfaState, 'a', emptySet);
+            }
+            if (!charMap.containsKey('b')) {
+                dfa.addTransition(dfaState, 'b', emptySet);
+            }
+        }
+
+        dfa.addTransition(emptySet, 'a', emptySet);
+        dfa.addTransition(emptySet, 'b', emptySet);
         for (Set<State> dfaState: dfa.transitions.keySet()) {
             dfa.states.add(dfaState);
         }
-
         return dfa;
     }
 
@@ -126,6 +142,7 @@ public class cse105 {
      * second line is initial state
      * third state is set of accept states
      * rest of lines are transitions in NFA
+     * Seperated by spaces
      */
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
