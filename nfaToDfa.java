@@ -81,7 +81,7 @@ public class nfaToDfa {
 
     /*
      * Representation of a DFA (Macro-States Construction)
-     * See README file for clarification on terminology and 
+     * See README file for clarification on terminology and specification
      */
     static class DFA {
         Set<Set<State>> states;
