@@ -173,7 +173,6 @@ public class nfaToDfa {
                         dfa.acceptStates.add(dfaState);
                     }
                 }
-                
             }
         }
 
@@ -183,7 +182,6 @@ public class nfaToDfa {
         for (Set<State> dfaState: dfa.transitions.keySet()) {
             dfa.states.add(dfaState);
         }
-
         return dfa;
     }
 
@@ -267,7 +265,5 @@ public class nfaToDfa {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } 
-
-        
     }
 }
