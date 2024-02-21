@@ -28,24 +28,6 @@ public class nfaToDfa {
             return this.toString().equals(obj.toString());
         }
     }
-
-    static class Transition {
-        String from;
-        char input;
-        String to;
-
-        Transition(String from, char input, String to) {
-            this.from = from;
-            this.input = input;
-            this.to = to;
-        }
-
-        @Override 
-        public int hashCode() {
-            return Objects.hash(from, input, to);
-        }
-    }
-
     
     /**
      * Representation of an NFA
@@ -264,26 +246,28 @@ public class nfaToDfa {
                 NFA.addTransition(states.get(line[0]), line[1].charAt(0), states.get(line[2]));
             }
             sc.close();
+
+            System.out.println("NFA CONTENTS:\n");
+            System.out.println("Set of states: " + NFA.states);
+            System.out.println("Alphabet: " + NFA.alphabet);
+            System.out.println("Transitions: " + NFA.transitions);
+            System.out.println("Initial State: " + NFA.initialState);
+            System.out.println("Set of Accepting States: " + NFA.acceptStates);
+        
+            DFA DFA = convertToDFA(NFA);
+
+            System.out.println("\n-----\n");
+
+            System.out.println("DFA CONTENTS:\n");
+            System.out.println("Set of states: " + DFA.states);
+            System.out.println("Alphabet: " + DFA.alphabet);
+            System.out.println("Transitions: " + DFA.transitions);
+            System.out.println("Initial State: " + DFA.initialState);
+            System.out.println("Set of Accepting States: " + DFA.acceptStates);
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } 
 
-        System.out.println("NFA CONTENTS:\n");
-        System.out.println("Set of states: " + NFA.states);
-        System.out.println("Alphabet: " + NFA.alphabet);
-        System.out.println("Transitions: " + NFA.transitions);
-        System.out.println("Initial State: " + NFA.initialState);
-        System.out.println("Set of Accepting States: " + NFA.acceptStates);
         
-        DFA DFA = convertToDFA(NFA);
-
-        System.out.println("\n-----\n");
-
-        System.out.println("DFA CONTENTS:\n");
-        System.out.println("Set of states: " + DFA.states);
-        System.out.println("Alphabet: " + DFA.alphabet);
-        System.out.println("Transitions: " + DFA.transitions);
-        System.out.println("Initial State: " + DFA.initialState);
-        System.out.println("Set of Accepting States: " + DFA.acceptStates);
     }
 }
