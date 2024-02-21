@@ -135,8 +135,8 @@ public class nfaToDfa {
 
         /*
          * Create an new state "EMPTY" which is a representation of the empty set.
-         * This empty state acts as a "trap state" where transitions not listed in the NFA (strings not accepted) transition to the empty set.
-         * The empty set will never be an accept state.
+         * This empty state acts as a "trap state" where transitions not listed in the NFA 
+         * (strings not accepted) transition to the empty set. The empty set will never be an accept state.
          */
         State emptyState = new State("EMPTY");
         Set<State> emptySet = new HashSet<>();
@@ -175,8 +175,8 @@ public class nfaToDfa {
         }
         
         /*
-         * Any transition to the empty set means that string is not recognized by the machine, so add transitions
-         * to make the empty set a trap state.
+         * Any transition to the empty set means that string is not recognized by the machine, 
+         * so add transitions to make the empty set a trap state.
          */
         dfa.addTransition(emptySet, 'a', emptySet);
         dfa.addTransition(emptySet, 'b', emptySet);
@@ -210,8 +210,8 @@ public class nfaToDfa {
      * First line is set of states.
      * Second line is initial state.
      * Third state is set of accept states.
-     * Rest of lines are transitions in NFA. These are parameters for the addTransition method for the NFA class. 
-     * Please see example.txt for an example format.
+     * Rest of lines are transitions in NFA. 
+     * These are parameters for the addTransition method for the NFA class. Please see example.txt for an example format.
      */
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
